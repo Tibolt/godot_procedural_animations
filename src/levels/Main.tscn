@@ -20,6 +20,17 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 2 )
 
+[node name="Ground2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.437922, -25.0505 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 2 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.628995, 0.77741, 0, -0.77741, 0.628995, 0, 24.7379, 0 )
 shadow_enabled = true
@@ -30,6 +41,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.36748, 0 )
 [node name="Skeleton" parent="Player/Pivot/Robot/Armature" index="0"]
 bones/3/bound_children = [  ]
 bones/6/bound_children = [  ]
+
+[node name="left_foot" parent="Player/Pivot/Robot/Armature/Skeleton" index="1"]
+transform = Transform( -0.999279, -0.0109647, 0.0363399, 0.037958, -0.288651, 0.956682, -1.78814e-07, 0.957373, 0.28886, 1.86879, 0.276815, -0.502075 )
 
 [node name="target_container_left" parent="Player/Pivot" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.544897, 1.18937, 0.204312 )

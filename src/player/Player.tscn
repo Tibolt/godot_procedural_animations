@@ -4,11 +4,11 @@
 [ext_resource path="res://src/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://src/player/SpringArm.gd" type="Script" id=3]
 
-[sub_resource type="BoxShape" id=1]
-
 [sub_resource type="SphereShape" id=3]
 margin = 0.001
 radius = 0.471003
+
+[sub_resource type="BoxShape" id=1]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Walk"
@@ -19,14 +19,14 @@ script = ExtResource( 2 )
 [node name="Pivot" type="Spatial" parent="."]
 
 [node name="Robot" parent="Pivot" instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.301302 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="Skeleton" parent="Pivot/Robot/Armature" index="0"]
 bones/3/bound_children = [ NodePath("left_foot") ]
 bones/6/bound_children = [ NodePath("right_foot") ]
 
 [node name="left_foot" type="BoneAttachment" parent="Pivot/Robot/Armature/Skeleton" index="1"]
-transform = Transform( -0.999279, -0.0109647, 0.0363399, 0.037958, -0.288651, 0.956682, -1.78814e-07, 0.957373, 0.28886, 1.86879, 0.276815, -0.502075 )
+transform = Transform( -0.999701, 0.0129107, 0.0132173, 0.00706267, -0.393922, 0.918967, 0.0170736, 0.918904, 0.393763, 2.2548, 0.340581, -0.372674 )
 bone_name = "Stopa.L"
 
 [node name="raycast_left" type="RayCast" parent="Pivot/Robot/Armature/Skeleton/left_foot"]
@@ -38,7 +38,7 @@ transform = Transform( -0.999279, 0.0109645, -0.0363402, -0.0379582, -0.28865, 0
 bone_name = "Stopa.R"
 
 [node name="raycast_right" type="RayCast" parent="Pivot/Robot/Armature/Skeleton/right_foot"]
-transform = Transform( 0.999999, -0.000711834, 0.00148944, 0.00156971, 0.130695, -0.991423, 0.000511055, 0.991423, 0.130696, 0.229708, -0.267183, -0.162612 )
+transform = Transform( 0.999999, -0.000711834, 0.00148944, 0.00156971, 0.130695, -0.991423, 0.000511054, 0.991423, 0.130696, 0.229708, -0.267183, -0.162612 )
 enabled = true
 
 [node name="ik_left_foot" type="SkeletonIK" parent="Pivot/Robot/Armature/Skeleton" index="3"]
@@ -57,8 +57,41 @@ use_magnet = true
 magnet = Vector3( 0, 0, 10 )
 target_node = NodePath("../../../../target_container_right/target_right")
 
-[node name="Body" type="Position3D" parent="Pivot/Robot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.87093e-08, 1.09379, -0.655062 )
+[node name="BodyRay" type="RayCast" parent="Pivot/Robot/Armature/Skeleton" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98311e-07, 2.63138, -2.26841 )
+enabled = true
+cast_to = Vector3( 0, -4, 0 )
+debug_shape_thickness = 5
+
+[node name="TargetLeft" type="Position3D" parent="Pivot/Robot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64861, 0.2, 1.21113 )
+
+[node name="Area" type="Area" parent="Pivot/Robot/TargetLeft"]
+
+[node name="TargetCubeL" type="CollisionShape" parent="Pivot/Robot/TargetLeft/Area"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0749995, 0, 0.0462815 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="RayTargetLeft" type="RayCast" parent="Pivot/Robot/TargetLeft"]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
+enabled = true
+debug_shape_thickness = 5
+
+[node name="TargetRight" type="Position3D" parent="Pivot/Robot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0214, 0.2, 1.21113 )
+
+[node name="Area" type="Area" parent="Pivot/Robot/TargetRight"]
+
+[node name="TargetCubeR" type="CollisionShape" parent="Pivot/Robot/TargetRight/Area"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0749995, 0, 0.0462815 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="RayTargetRight" type="RayCast" parent="Pivot/Robot/TargetRight"]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
+enabled = true
+debug_shape_thickness = 5
 
 [node name="target_container_left" type="Position3D" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18586, 1.15531, 0.231733 )
@@ -84,16 +117,11 @@ enabled = true
 transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02344, 0.756 )
 shape = SubResource( 1 )
 
-[node name="TargetCubeL" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.848, 0.2, -1.79815 )
-shape = SubResource( 3 )
-disabled = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Walk = SubResource( 2 )
 
 [node name="SpringArm" type="SpringArm" parent="."]
-spring_length = 15.0
+spring_length = 10.0
 margin = 0.5
 script = ExtResource( 3 )
 
