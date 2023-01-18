@@ -189,7 +189,7 @@ public class Player : KinematicBody
 	public void IKStep(Position3D pos, Position3D target, float distance, RayCast ray)
 	{
 		var last = pos.GlobalTranslation;
-		last.y = raycastTargetL.GlobalTranslation.y;
+		last.y = ray.GlobalTranslation.y;
 		ray.GlobalTranslation =  last;
 
 		if(target.GlobalTranslation.DistanceTo(pos.GlobalTranslation) > distance)
@@ -208,7 +208,7 @@ public class Player : KinematicBody
 		if(ray.IsColliding())
 		{
 			var pos = curr.GlobalTranslation;
-			pos.y = rayTargetLeft.GetCollisionPoint().y;
+			pos.y = ray.GetCollisionPoint().y;
 			curr.GlobalTranslation = pos;
 			
 			//test

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Robot/Robot.glb" type="PackedScene" id=1]
-[ext_resource path="res://src/player/Player.cs" type="Script" id=2]
+[ext_resource path="res://src/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/player/SpringArm.gd" type="Script" id=3]
 
 [sub_resource type="SphereShape" id=3]
@@ -9,6 +9,7 @@ margin = 0.001
 radius = 0.471003
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.562248, 1, 1 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Walk"
@@ -19,14 +20,14 @@ script = ExtResource( 2 )
 [node name="Pivot" type="Spatial" parent="."]
 
 [node name="Robot" parent="Pivot" instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.183525, -0.0365214, 0 )
 
 [node name="Skeleton" parent="Pivot/Robot/Armature" index="0"]
 bones/3/bound_children = [ NodePath("left_foot") ]
 bones/6/bound_children = [ NodePath("right_foot") ]
 
 [node name="left_foot" type="BoneAttachment" parent="Pivot/Robot/Armature/Skeleton" index="1"]
-transform = Transform( -0.999701, 0.0129107, 0.0132173, 0.00706267, -0.393922, 0.918967, 0.0170736, 0.918904, 0.393763, 2.2548, 0.340581, -0.372674 )
+transform = Transform( -0.999279, -0.0109647, 0.0363399, 0.037958, -0.288651, 0.956682, -1.78814e-07, 0.957373, 0.28886, 1.86879, 0.276815, -0.502075 )
 bone_name = "Stopa.L"
 
 [node name="raycast_left" type="RayCast" parent="Pivot/Robot/Armature/Skeleton/left_foot"]
@@ -34,7 +35,7 @@ transform = Transform( 0.99995, 0.00487942, -0.00871919, -0.00910304, 0.0851297,
 enabled = true
 
 [node name="right_foot" type="BoneAttachment" parent="Pivot/Robot/Armature/Skeleton" index="2"]
-transform = Transform( -0.999279, 0.0109645, -0.0363402, -0.0379582, -0.28865, 0.956682, -5.12227e-08, 0.957371, 0.288858, -1.86879, 0.276816, -0.502077 )
+transform = Transform( -0.999829, 0.0129126, 0.0132192, 0.00759623, -0.36493, 0.931004, 0.0168457, 0.930945, 0.36477, -1.96954, 0.300903, -0.457815 )
 bone_name = "Stopa.R"
 
 [node name="raycast_right" type="RayCast" parent="Pivot/Robot/Armature/Skeleton/right_foot"]
@@ -94,13 +95,13 @@ enabled = true
 debug_shape_thickness = 5
 
 [node name="target_container_left" type="Position3D" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18586, 1.15531, 0.231733 )
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1, -1.54802, 0.960617, 0.339931 )
 
 [node name="target_left" type="Position3D" parent="Pivot/target_container_left"]
-transform = Transform( 0.999829, -0.0129126, -0.0132192, 0.00706364, -0.393976, 0.919094, -0.017076, -0.91903, -0.393817, -1.07803, -0.879423, 0.130694 )
+transform = Transform( 0.999829, -0.0129126, -0.0132192, 0.00564009, -0.467986, 0.883718, -0.0175976, -0.883642, -0.467833, -1.07803, -0.879423, 0.130694 )
 
 [node name="target_container_right" type="Position3D" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.93098, 1.11103, 0.029542 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72811, 1.11103, 0.029542 )
 
 [node name="target_right" type="Position3D" parent="Pivot/target_container_right"]
 transform = Transform( 0.999829, -0.0129126, -0.0132192, 0.00759623, -0.36493, 0.931004, -0.0168458, -0.930945, -0.36477, -0.940149, -0.879423, 0.425982 )
@@ -121,7 +122,7 @@ shape = SubResource( 1 )
 anims/Walk = SubResource( 2 )
 
 [node name="SpringArm" type="SpringArm" parent="."]
-spring_length = 10.0
+spring_length = 15.0
 margin = 0.5
 script = ExtResource( 3 )
 
